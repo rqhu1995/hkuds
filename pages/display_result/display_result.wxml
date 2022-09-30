@@ -1,0 +1,56 @@
+<van-row>
+    <van-col span="6">
+        <van-image width="100" height="100" src="https://dl3.pushbulletusercontent.com/ikniFXMQbVz9pACWATVm6uB1u3nN7vwU/IMG_6232.jpg" />
+    </van-col>
+    
+    <van-col span="15" offset="3">
+      <van-row>
+        <view class="title">HKU-DS</view>
+      </van-row>
+      <van-row>
+        <view class="title">开饭时间</view>
+  </van-row>
+    </van-col>
+</van-row>
+
+<view class="tr bg-w">
+ <view class="th">姓名</view>
+ <view class="th">想吃啥</view>
+ <view class="th ">在哪里</view>
+ <view class="th">删除记录</view>
+</view>
+<block wx:for="{{listData}}">
+ <view class="tr bg-g" wx:if="{{index % 2 == 0}}">
+ <view class="td">{{item.name}}</view>
+ <view class="td">{{item.preference}}</view>
+ <view class="td">{{item.location}}</view>
+  <view class="td">
+    <van-button data-id="{{item._id}}" icon="delete" type="default" size="mini" round="true" color="#e87d85" bindtap="removeOneData"/>
+    </view>
+ </view>
+ <view class="tr" wx:else>
+ <view class="td">{{item.name}}</view>
+ <view class="td">{{item.preference}}</view>
+ <view class="td">{{item.location}}</view>
+ <view class="td">
+    <van-button data-id="{{item._id}}" icon="delete" type="default" size="mini" round="true" color="#e87d85" bindtap="removeOneData"/>
+    </view>
+ </view>
+ </block>
+
+ <block wx:for="{{listNotTogether}}">
+ <view class="tr bg-g" wx:if="{{index != 1000}}">
+ <view class="td">{{item.name}}</view>
+ <view class="td">不一起吃</view>
+ <view class="td">/</view>
+ <view class="td">
+    <van-button data-id="{{item._id}}" icon="delete" type="default" size="mini" round="true" color="#e87d85" bindtap="removeOneData"/>
+</view>
+ </view>
+ <view class="tr" wx:else>
+ <view class="td">{{item.name}}</view>
+ <view class="td">{{item.preference}}</view>
+ <view class="td">{{item.location}}</view>
+ </view>
+ </block>
+<canvas canvas-id="columnCanvas"></canvas>

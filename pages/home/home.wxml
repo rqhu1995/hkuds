@@ -1,0 +1,56 @@
+<van-row>
+    <van-col span="6">
+        <van-image width="100" height="100" src="https://dl3.pushbulletusercontent.com/ikniFXMQbVz9pACWATVm6uB1u3nN7vwU/IMG_6232.jpg" />
+    </van-col>
+    
+    <van-col span="15" offset="3">
+      <van-row>
+        <view class="title">HKU-DS</view>
+      </van-row>
+      <van-row>
+        <view class="title">开饭时间</view>
+  </van-row>
+    </van-col>
+</van-row>
+
+<view class="form">
+    <van-cell-group>
+        <van-field label="我是谁" value="{{ usrname }}" placeholder="输入姓名..." type="textarea" clearable required bind:blur="setUserName" input-align="right"/>
+        <view bindtap="showPopupTogether">
+            <van-cell label="一起吃？" title-width="6em" placeholder="点击选择..." value="{{together}}" required clickable />
+        </view>
+        <view wx:if="{{together=='Yes'}}" bindtap="showPopupMealChoice">
+            <van-cell label="吃啥？" title-width="6em" placeholder="点击选择..." value="{{meal_choice}}" required clickable />
+        </view>
+        <view wx:if="{{meal_choice=='其他'}}">
+            <van-field label="其他是啥？" title-width="6em" placeholder="请输入" value="{{meal_choice}}" required bind:blur="getOtherMealChoice" input-align="right"/>
+        </view>
+        <view wx:if="{{together=='Yes'}}" bindtap="showPopupLocationChoice">
+            <van-cell label="现在在哪里" title-width="6em" placeholder="点击选择..." value="{{location_choice}}" required clickable />
+        </view>
+    </van-cell-group>
+    <!-- 地区弹出层 -->
+    <van-popup show="{{ showTogether }}" bind:close="onCloseTogether" position="bottom" custom-style="height: 40%">
+        <van-picker title="一起吃？" show-toolbar columns="{{ yesOrNo }}" bind:cancel="onCloseTogether" bind:confirm="onConfirmTogether" />
+    </van-popup>
+
+    <van-popup show="{{ showMealChoice }}" bind:close="onCloseMealChoice" position="bottom" custom-style="height: 40%">
+        <van-picker title="吃啥" show-toolbar columns="{{ meal_choices }}" bind:cancel="onCloseMealChoice" bind:confirm="onConfirmMealChoice" />
+    </van-popup>
+
+    <van-popup show="{{ showLocationChoice }}" bind:close="onCloseLocationChoice" position="bottom" custom-style="height: 40%">
+        <van-picker title="现在在哪里" show-toolbar columns="{{ location_choices }}" bind:cancel="onCloseLocationChoice" bind:confirm="onConfirmLocationChoice" />
+    </van-popup>
+
+<van-row>
+<van-col span="6" offset="2">
+  <van-button type="primary" bindtap="submit" size="small" loading="{{ loading }}" custom-style="margin: 300px 0px 0px 0px;">提交</van-button>
+</van-col>
+<van-col span="6" offset="1">
+  <van-button type="primary" bindtap="goToResult" size="small" loading="{{ loading }}" custom-style="margin: 300px 0px 0px 0px;">查看投票结果</van-button>
+</van-col>
+<van-col span="6" offset="2">
+  <van-button type="danger" bindtap="clearDB" size="small" loading="{{ loading }}" custom-style="margin: 300px 0px 0px 0px;">删库</van-button>
+</van-col>
+</van-row>
+</view>
